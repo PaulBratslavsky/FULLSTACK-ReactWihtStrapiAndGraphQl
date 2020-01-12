@@ -1,13 +1,15 @@
 {
+  "connection": "default",
+  "collectionName": "products",
   "info": {
-    "name": "product"
+    "name": "Product"
   },
   "options": {
     "increments": true,
     "timestamps": true
   },
   "attributes": {
-    "string": {
+    "name": {
       "type": "string",
       "required": true
     },
@@ -26,10 +28,7 @@
       "required": true
     },
     "brand": {
-      "model": "brand",
-      "via": "products"
+      "model": "brand"
     }
-  },
-  "connection": "default",
-  "collectionName": "products"
+  }
 }

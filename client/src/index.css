@@ -32,3 +32,13 @@ a.active {
   color: yellow;
 }
 
+.image-container {
+  height: 320px;
+  width: 100%;
+}
+
+.image-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

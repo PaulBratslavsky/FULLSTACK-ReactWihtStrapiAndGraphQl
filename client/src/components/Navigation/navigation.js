@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export default function Navigation() {
     return (
-        <nav className="navbar navbar-dark bg-dark">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div className="container">
                 <NavLink exact to="/" className="navbar-brand" href="#">Scrapi</NavLink>
                 <ul className="nav mt-2 mt-lg-0 ">

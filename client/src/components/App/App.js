@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-import { strapi, apiUrl } from '../Api/Strapi';
+import { strapi, apiUrl } from '../../Api/Strapi';
 import { Link } from 'react-router-dom';
-
-function Loading() {
-  return (
-    <div class="d-flex justify-content-center">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-  );
-}
+import Loading from './Loading';
 
 function Search({handleChange, searchTerm}) {
 
@@ -25,6 +16,23 @@ function Search({handleChange, searchTerm}) {
   );
 }
 
+const graphQlquery = { query: `
+
+  query {
+    brands {
+      _id
+      name
+      description
+      image {
+        url
+      }
+    }
+  }
+
+`};
+
+
+
 class App extends Component {
 
   state = {
@@ -38,7 +46,7 @@ class App extends Component {
     try {
       
       const response = await strapi.request('POST', '/graphql', {
-        data: { query: data }
+        data: graphQlquery
       });
   
       this.setState(() => ({ 
@@ -92,9 +100,11 @@ class App extends Component {
     brands.map( brand => ( 
       <div key={brand._id}>
         <h2>{brand.name}</h2>
+        <div className="image-container">
+          <img src={`${apiUrl}${brand.image.url}`} alt={`${brand.name} image`}/>
+        </div>
         <p>{brand.description}</p>
         <Link className="read-more" to={`/${brand._id}`}>More...</Link>
-        <img src={`${apiUrl}${brand.image.url}`} className="img-fluid" alt={`${brand.name} image`}/>
       </div>))
   )
 
@@ -104,13 +114,15 @@ class App extends Component {
     console.log(this.state.brands);
 
     return (
-      <div className="container">
-        <div className="jumbotron jumbotron-fluid mt-3">
+      <React.Fragment>
+      <div className="jumbotron jumbotron-fluid mt-5">
           <div className="container">
             <h1 className="display-4">Brands</h1>
             <p className="lead">Check out our Brands Collection.</p>
           </div>
         </div>
+      <div className="container">
+      
         <Search handleChange={this.handleChange} searchTerm={this.state.searchTerm} />
       
         { this.state.isLoading 
@@ -119,19 +131,10 @@ class App extends Component {
         }
 
       </div>
+      </React.Fragment>
     )
   }
 }
 
 export default App;
 
-const data = `query {
-  brands {
-    _id
-    name
-    description
-    image {
-      url
-    }
-  }
-}`;

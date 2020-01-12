@@ -24,7 +24,6 @@
       "required": true
     },
     "products": {
-      "via": "brand",
       "collection": "product"
     }
   }

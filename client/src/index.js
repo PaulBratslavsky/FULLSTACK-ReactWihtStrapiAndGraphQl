@@ -12,6 +12,7 @@ import Navigation from './components/Navigation/navigation';
 import SignIn from './components/SignIn/signin';
 import SignUp from './components/SignUp/signup';
 import CheckOut from './components/CheckOut/checkout';
+import Products from './components/App/Products';
 
 const Root = () => (
     <Router>
@@ -21,6 +22,7 @@ const Root = () => (
             <Route component={SignIn} exact path="/signin" />
             <Route component={SignUp} exact path="/signup" />
             <Route component={CheckOut} exact path="/checkout" />
+            <Route component={Products} path="/:brandId" />
         </Switch></>
     </Router>
 );
